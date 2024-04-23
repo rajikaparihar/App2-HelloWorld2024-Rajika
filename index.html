@@ -3,106 +3,151 @@
 
 <head>
     <!-- Metadata section -->
-    <title>Skin Health Check</title>
+    <title>Skin Health Survey</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3-colors-flat.css">
+    <style>
+        /* Blue and yellow design features */
+        body {
+            background-color: #f4f4f4;
+        }
+
+        .w3-blue {
+            background-color: #007bff !important;
+            color: white !important;
+        }
+
+        .w3-yellow {
+            background-color: #ffc107 !important;
+            color: black !important;
+        }
+
+        .w3-border-yellow {
+            border-color: #ffc107 !important;
+        }
+
+        .w3-text-yellow {
+            color: #ffc107 !important;
+        }
+
+        .w3-hover-blue:hover {
+            background-color: #007bff !important;
+            color: white !important;
+        }
+
+        .w3-hover-yellow:hover {
+            background-color: #ffc107 !important;
+            color: black !important;
+        }
+    </style>
 </head>
 
-<style>
-    .body {
-        margin: 0em;
-    }
-
-    .page {
-        width: 100vw;
-        height: 100vh;
-        position: fixed;
-        top: 0;
-        left: -100vw;
-        overflow-y: auto;
-        z-index: 0;
-        background-color: hsl(0, 0%, 100%);
-    }
-
-    .page:target {
-        left: 0vw;
-        z-index: 1;
-    }
-
-    img,
-    object {
-        max-height: 90%;
-        max-width: 90%;
-    }
-</style>
-
 <body>
-    <!-- Content section-->
-    <div id="header" class="w3-container w3-flat-carrot">
-        <!-- Header-->
-        <h1>Skin Health Check</h1>
+    <!-- Survey section -->
+    <div class="w3-container w3-blue">
+        <h2>Skin Health Survey</h2>
     </div>
 
-    <!-- Survey Form -->
     <div class="w3-container">
-        <h2>Survey</h2>
-        <p>Do you think the skin condition is malignant or benign?</p>
-        <button onclick="malignantAdd()">Malignant</button>
-        <button onclick="benignAdd()">Benign</button>
-        <button onclick="percentage()">Calculate Probability</button>
-        <div id="results"></div>
+        <form id="surveyForm">
+            <div class="w3-row-padding">
+                <div class="w3-half">
+                    <p>Do you have a mole?</p>
+                    <label class="w3-text-yellow">
+                        <input class="w3-radio" type="radio" name="mole" value="yes">
+                        <span>Yes</span>
+                    </label>
+                    <label class="w3-text-yellow">
+                        <input class="w3-radio" type="radio" name="mole" value="no">
+                        <span>No</span>
+                    </label>
+                </div>
+
+                <div class="w3-half">
+                    <p>Do you use SPF daily?</p>
+                    <label class="w3-text-yellow">
+                        <input class="w3-radio" type="radio" name="spf" value="yes">
+                        <span>Yes</span>
+                    </label>
+                    <label class="w3-text-yellow">
+                        <input class="w3-radio" type="radio" name="spf" value="no">
+                        <span>No</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="w3-row-padding">
+                <div class="w3-half">
+                    <p>Have you been using a tanning bed?</p>
+                    <label class="w3-text-yellow">
+                        <input class="w3-radio" type="radio" name="tanning" value="yes">
+                        <span>Yes</span>
+                    </label>
+                    <label class="w3-text-yellow">
+                        <input class="w3-radio" type="radio" name="tanning" value="no">
+                        <span>No</span>
+                    </label>
+                </div>
+
+                <div class="w3-half">
+                    <p>Do you have a family history of melanoma?</p>
+                    <label class="w3-text-yellow">
+                        <input class="w3-radio" type="radio" name="melanoma" value="yes">
+                        <span>Yes</span>
+                    </label>
+                    <label class="w3-text-yellow">
+                        <input class="w3-radio" type="radio" name="melanoma" value="no">
+                        <span>No</span>
+                    </label>
+                </div>
+            </div>
+        </form>
     </div>
 
-    <!-- Image Upload Section -->
-    <div class="w3-container">
-        <h2>Upload Image</h2>
+    <div class="w3-container w3-blue">
+        <button class="w3-button w3-hover-yellow" onclick="submitSurvey()">Submit</button>
+    </div>
+
+    <!-- Image upload section -->
+    <div id="imageUpload" class="w3-container" style="display: none;">
+        <h2>Upload Image for Comparison</h2>
         <input type="file" id="fileInput" accept="image/*">
         <canvas id="canvas" width="600" height="500"></canvas>
         <div id="messageDisplayArea"></div>
     </div>
 
-    <!-- JavaScript Section -->
+    <!-- JavaScript section -->
     <script>
-        // This code lets me know when last the file was modified. It lets me know if I'm looking at the new version or if Github is delayed.
-        var docMod = document.lastModified;
-        alert("This file last modified " + docMod);
-        console.log("This file last modified " + docMod);
+        // Function to submit the survey
+        function submitSurvey() {
+            var form = document.getElementById("surveyForm");
+            var mole = form.elements["mole"].value;
+            var spf = form.elements["spf"].value;
+            var tanning = form.elements["tanning"].value;
+            var melanoma = form.elements["melanoma"].value;
 
-        // Labeled variables and functions to be used throughout the code
-        var malignant_count = 0;
-        var benign_count = 0;
+            // Calculate the scores
+            var malignantScore = 0;
+            var benignScore = 0;
+            if (mole === "yes") malignantScore++;
+            else benignScore++;
+            if (spf === "no") malignantScore++;
+            else benignScore++;
+            if (tanning === "yes") malignantScore++;
+            else benignScore++;
+            if (melanoma === "yes") malignantScore++;
+            else benignScore++;
 
-        // Function to increment malignant count and display the alert
-        function malignantAdd() {
-            malignant_count = malignant_count + 1;
-            alert("Malignant count: " + malignant_count);
+            // Show image upload section
+            var surveyDiv = document.getElementById("imageUpload");
+            surveyDiv.style.display = "block";
+
+            // Display scores (for testing)
+            console.log("Malignant Score:", malignantScore);
+            console.log("Benign Score:", benignScore);
         }
 
-        // Function to increment benign count
-        function benignAdd() {
-            benign_count = benign_count + 1;
-            alert("Benign count: " + benign_count);
-        }
-
-        // Function to calculate percentage probability of malignant or benign
-        function percentage() {
-            // Calculating the percentage based on the counts
-            var malignant_p = (malignant_count / 4) * 100;
-            var benign_p = (benign_count / 4) * 100;
-            // Code to display the results
-            var results = document.getElementById("results");
-            results.innerHTML = "Probability it is malignant: " + malignant_p + "%<br> Probability it is benign: " + benign_p + "%";
-        }
-
-        // Function to draw image on canvas
-        function drawImageIOSFix(ctx, img, sx, sy, sw, sh, dx, dy, dw, dh) {
-            var vertSquashRatio = detectVerticalSquash(img);
-            ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh / vertSquashRatio);
-        }
-
-        // Function to handle image upload
+        // Image upload handling (similar to previous code)
         window.onload = function () {
             var fileInput = document.getElementById('fileInput');
             var messageDisplayArea = document.getElementById('messageDisplayArea');
