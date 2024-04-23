@@ -37,129 +37,175 @@
 </head>
 
 <body>
+    <!-- Title page -->
+    <div id="titlePage" class="w3-container">
+        <h1>Skin Health Survey</h1>
+        <p>Answer a few questions to determine your mole type.</p>
+        <button class="w3-btn w3-hover-yellow" onclick="startSurvey()">Start Survey</button>
+    </div>
+
     <!-- Survey section -->
-    <div class="w3-container w3-flat-carrot">
-        <h2>Skin Health Survey</h2>
+    <div id="survey" class="w3-container" style="display: none;">
+        <!-- Original and uploaded images section -->
+        <div class="w3-container">
+            <h2>Original Image</h2>
+            <img id="originalImage" src="https://www.txid.org/wp-content/uploads/2012/05/ABCDEs-1.jpg" alt="Original Mole Image" style="width: 50%; max-width: 500px;">
+            <h2>Uploaded Image</h2>
+            <img id="uploadedImage" src="#" alt="Uploaded Mole Image" style="width: 50%; max-width: 500px;">
+            <input type="file" id="fileInput" accept="image/*">
+        </div>
+
+        <!-- Survey questions section -->
+        <div class="w3-container">
+            <!-- Question 1 -->
+            <div id="question1">
+                <h3>Question 1: Does your mole have symmetry?</h3>
+                <label class="w3-text-yellow">
+                    <input class="w3-radio" type="radio" name="symmetry" value="yes">
+                    <span>Yes</span>
+                </label>
+                <label class="w3-text-yellow">
+                    <input class="w3-radio" type="radio" name="symmetry" value="no">
+                    <span>No</span>
+                </label>
+                <br><br>
+                <button class="w3-btn w3-hover-yellow" onclick="nextQuestion(1)">Next</button>
+            </div>
+
+            <!-- Question 2 -->
+            <div id="question2" style="display: none;">
+                <h3>Question 2: Are the borders to your mole smooth?</h3>
+                <label class="w3-text-yellow">
+                    <input class="w3-radio" type="radio" name="smooth_borders" value="yes">
+                    <span>Yes</span>
+                </label>
+                <label class="w3-text-yellow">
+                    <input class="w3-radio" type="radio" name="smooth_borders" value="no">
+                    <span>No</span>
+                </label>
+                <br><br>
+                <button class="w3-btn w3-hover-yellow" onclick="nextQuestion(2)">Next</button>
+            </div>
+
+            <!-- Question 3 -->
+            <div id="question3" style="display: none;">
+                <h3>Question 3: How is your mole colored?</h3>
+                <label class="w3-text-yellow">
+                    <input class="w3-radio" type="radio" name="colored" value="one_color">
+                    <span>One consistent color</span>
+                </label>
+                <label class="w3-text-yellow">
+                    <input class="w3-radio" type="radio" name="colored" value="variety_colors">
+                    <span>Has a variety of colors</span>
+                </label>
+                <br><br>
+                <button class="w3-btn w3-hover-yellow" onclick="nextQuestion(3)">Next</button>
+            </div>
+
+            <!-- Question 4 -->
+            <div id="question4" style="display: none;">
+                <h3>Question 4: Relatively speaking, what is the diameter of your mole?</h3>
+                <label class="w3-text-yellow">
+                    <input class="w3-radio" type="radio" name="diameter" value="small">
+                    <span>Small</span>
+                </label>
+                <label class="w3-text-yellow">
+                    <input class="w3-radio" type="radio" name="diameter" value="larger">
+                    <span>Larger</span>
+                </label>
+                <br><br>
+                <button class="w3-btn w3-hover-yellow" onclick="nextQuestion(4)">Next</button>
+            </div>
+
+            <!-- Question 5 -->
+            <div id="question5" style="display: none;">
+                <h3>Question 5: Does it look like your mole is evolving?</h3>
+                <label class="w3-text-yellow">
+                    <input class="w3-radio" type="radio" name="evolving" value="yes">
+                    <span>Yes</span>
+                </label>
+                <label class="w3-text-yellow">
+                    <input class="w3-radio" type="radio" name="evolving" value="no">
+                    <span>No</span>
+                </label>
+                <br><br>
+                <button class="w3-btn w3-hover-yellow" onclick="submitSurvey()">Submit</button>
+            </div>
+        </div>
     </div>
 
-    <!-- Original and uploaded images section -->
-    <div class="w3-container">
-        <h2>Original Image</h2>
-        <img id="originalImage" src="https://www.txid.org/wp-content/uploads/2012/05/ABCDEs-1.jpg" alt="Original Mole Image" style="width: 50%; max-width: 500px;">
-        <h2>Uploaded Image</h2>
-        <img id="uploadedImage" src="#" alt="Uploaded Mole Image" style="width: 50%; max-width: 500px;">
-        <input type="file" id="fileInput" accept="image/*">
-    </div>
-
-    <!-- Survey questions section -->
-    <div class="w3-container">
-        <!-- Question 1 -->
-        <div id="question1">
-            <h3>Question 1: Does your mole have symmetry?</h3>
-            <label class="w3-text-yellow">
-                <input class="w3-radio" type="radio" name="symmetry" value="yes">
-                <span>Yes</span>
-            </label>
-            <label class="w3-text-yellow">
-                <input class="w3-radio" type="radio" name="symmetry" value="no">
-                <span>No</span>
-            </label>
-            <br><br>
-            <button class="w3-btn w3-hover-yellow" onclick="nextQuestion(1)">Next</button>
-        </div>
-
-        <!-- Question 2 -->
-        <div id="question2" style="display: none;">
-            <h3>Question 2: Are the borders to your mole smooth?</h3>
-            <label class="w3-text-yellow">
-                <input class="w3-radio" type="radio" name="smooth_borders" value="yes">
-                <span>Yes</span>
-            </label>
-            <label class="w3-text-yellow">
-                <input class="w3-radio" type="radio" name="smooth_borders" value="no">
-                <span>No</span>
-            </label>
-            <br><br>
-            <button class="w3-btn w3-hover-yellow" onclick="nextQuestion(2)">Next</button>
-        </div>
-
-        <!-- Question 3 -->
-        <div id="question3" style="display: none;">
-            <h3>Question 3: How is your mole colored?</h3>
-            <label class="w3-text-yellow">
-                <input class="w3-radio" type="radio" name="colored" value="one_color">
-                <span>One consistent color</span>
-            </label>
-            <label class="w3-text-yellow">
-                <input class="w3-radio" type="radio" name="colored" value="variety_colors">
-                <span>Has a variety of colors</span>
-            </label>
-            <br><br>
-            <button class="w3-btn w3-hover-yellow" onclick="nextQuestion(3)">Next</button>
-        </div>
-
-        <!-- Question 4 -->
-        <div id="question4" style="display: none;">
-            <h3>Question 4: Relatively speaking, what is the diameter of your mole?</h3>
-            <label class="w3-text-yellow">
-                <input class="w3-radio" type="radio" name="diameter" value="small">
-                <span>Small</span>
-            </label>
-            <label class="w3-text-yellow">
-                <input class="w3-radio" type="radio" name="diameter" value="larger">
-                <span>Larger</span>
-            </label>
-            <br><br>
-            <button class="w3-btn w3-hover-yellow" onclick="nextQuestion(4)">Next</button>
-        </div>
-
-        <!-- Question 5 -->
-        <div id="question5" style="display: none;">
-            <h3>Question 5: Does it look like your mole is evolving?</h3>
-            <label class="w3-text-yellow">
-                <input class="w3-radio" type="radio" name="evolving" value="yes">
-                <span>Yes</span>
-            </label>
-            <label class="w3-text-yellow">
-                <input class="w3-radio" type="radio" name="evolving" value="no">
-                <span>No</span>
-            </label>
-            <br><br>
-            <button class="w3-btn w3-hover-yellow" onclick="submitSurvey()">Submit</button>
-        </div>
+    <!-- Final page -->
+    <div id="finalPage" class="w3-container" style="display: none;">
+        <h2>Diagnosis</h2>
+        <p id="diagnosis"></p>
+        <p>Please seek advice from a healthcare professional.</p>
     </div>
 
     <!-- Script -->
     <script>
-        var currentPage = 1;
+        var currentPage = 0;
+        var bratzScore = 0;
+        var barbieScore = 0;
 
-        // Function to switch to the next question
+        function startSurvey() {
+            document.getElementById('titlePage').style.display = 'none';
+            document.getElementById('survey').style.display = 'block';
+            nextQuestion(0);
+        }
+
         function nextQuestion(questionNumber) {
-            document.getElementById('question' + currentPage).style.display = 'none';
+            if (questionNumber > 0) {
+                document.getElementById('question' + (questionNumber - 1)).style.display = 'none';
+            }
             currentPage = questionNumber + 1;
             document.getElementById('question' + currentPage).style.display = 'block';
         }
 
-        // Function to submit the survey
         function submitSurvey() {
-            var form = document.querySelector("form");
-            var formData = new FormData(form);
+            var selectedSymmetry = document.querySelector('input[name="symmetry"]:checked');
+            var selectedBorders = document.querySelector('input[name="smooth_borders"]:checked');
+            var selectedColor = document.querySelector('input[name="colored"]:checked');
+            var selectedDiameter = document.querySelector('input[name="diameter"]:checked');
+            var selectedEvolving = document.querySelector('input[name="evolving"]:checked');
 
-            // Add your logic here to process survey results
-            console.log("Survey Data:", formData);
+            if (selectedSymmetry && selectedBorders && selectedColor && selectedDiameter && selectedEvolving) {
+                updateScore(selectedSymmetry.value);
+                updateScore(selectedBorders.value);
+                updateScore(selectedColor.value);
+                updateScore(selectedDiameter.value);
+                updateScore(selectedEvolving.value);
 
-            // Disable the next button after submission
-            document.querySelector('button').setAttribute('disabled', true);
+                showDiagnosis();
+            } else {
+                alert("Please answer all questions before submitting.");
+            }
+        }
+
+        function updateScore(answer) {
+            if (answer === 'yes' || answer === 'one_color' || answer === 'small' || answer === 'no') {
+                bratzScore++;
+            } else {
+                barbieScore++;
+            }
+        }
+
+        function showDiagnosis() {
+            document.getElementById('survey').style.display = 'none';
+            document.getElementById('finalPage').style.display = 'block';
+
+            var diagnosis = "Based on your answers, your mole type is: ";
+            if (bratzScore >= barbieScore) {
+                diagnosis += "Benign";
+            } else {
+                diagnosis += "Malignant";
+            }
+            document.getElementById('diagnosis').innerText = diagnosis;
         }
 
         // Function to handle image upload
         document.getElementById('fileInput').addEventListener('change', function(event) {
-            var file = event.target.files[0];
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('uploadedImage').src = e.target.result;
-            };
-            reader.readAsDataURL(file);
+            var uploadedImage = document.getElementById('uploadedImage');
+            uploadedImage.src = URL.createObjectURL(event.target.files[0]);
         });
     </script>
 </body>
