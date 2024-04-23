@@ -3,7 +3,7 @@
 
 <head>
     <!-- Metadata section -->
-    <title>Skin Health Survey</title>
+    <title>Mole Health Assessment</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
@@ -11,6 +11,7 @@
         body {
             background-color: #000080;
             color: #FFFF00;
+            font-family: Arial, sans-serif;
         }
 
         .w3-container,
@@ -33,26 +34,43 @@
             background-color: #000080 !important;
             color: #FFFF00 !important;
         }
+
+        /* Image container styling */
+        .image-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .image-container img {
+            width: 45%;
+            max-width: 400px;
+        }
     </style>
 </head>
 
 <body>
     <!-- Title page -->
-    <div id="titlePage" class="w3-container">
-        <h1>Skin Health Survey</h1>
-        <p>Answer a few questions to determine your mole type.</p>
-        <button class="w3-btn w3-hover-yellow" onclick="startSurvey()">Start Survey</button>
+    <div id="titlePage" class="w3-container w3-center">
+        <h1>Mole Health Assessment</h1>
+        <p>Answer a few questions to assess your mole health.</p>
+        <button class="w3-btn w3-hover-yellow" onclick="startSurvey()">Start Assessment</button>
     </div>
 
     <!-- Survey section -->
     <div id="survey" class="w3-container" style="display: none;">
-        <!-- Original and uploaded images section -->
-        <div class="w3-container">
-            <h2>Original Image</h2>
-            <img id="originalImage" src="https://www.txid.org/wp-content/uploads/2012/05/ABCDEs-1.jpg" alt="Original Mole Image" style="width: 50%; max-width: 500px;">
-            <h2>Uploaded Image</h2>
-            <img id="uploadedImage" src="#" alt="Uploaded Mole Image" style="width: 50%; max-width: 500px;">
-            <input type="file" id="fileInput" accept="image/*">
+        <!-- Image container -->
+        <div class="image-container">
+            <div>
+                <h2>Reference Mole Image</h2>
+                <img id="referenceImage" src="https://www.txid.org/wp-content/uploads/2012/05/ABCDEs-1.jpg" alt="Reference Mole Image">
+            </div>
+            <div>
+                <h2>Uploaded Mole Image</h2>
+                <img id="uploadedImage" src="#" alt="Uploaded Mole Image">
+                <input type="file" id="fileInput" accept="image/*">
+            </div>
         </div>
 
         <!-- Survey questions section -->
@@ -129,7 +147,7 @@
                     <span>No</span>
                 </label>
                 <br><br>
-                <button class="w3-btn w3-hover-yellow" onclick="submitSurvey()">Submit</button>
+                <button class="w3-btn w3-hover-yellow" onclick="submitAssessment()">Submit</button>
             </div>
         </div>
     </div>
@@ -138,30 +156,25 @@
     <div id="finalPage" class="w3-container" style="display: none;">
         <h2>Diagnosis</h2>
         <p id="diagnosis"></p>
-        <p>Please seek advice from a healthcare professional.</p>
+        <p>We recommend consulting a dermatologist for further evaluation.</p>
     </div>
 
-    <!-- Script -->
     <script>
-        var currentPage = 0;
         var bratzScore = 0;
         var barbieScore = 0;
 
         function startSurvey() {
             document.getElementById('titlePage').style.display = 'none';
             document.getElementById('survey').style.display = 'block';
-            nextQuestion(0);
+            document.getElementById('question1').style.display = 'block';
         }
 
         function nextQuestion(questionNumber) {
-            if (questionNumber > 0) {
-                document.getElementById('question' + (questionNumber - 1)).style.display = 'none';
-            }
-            currentPage = questionNumber + 1;
-            document.getElementById('question' + currentPage).style.display = 'block';
+            document.getElementById('question' + questionNumber).style.display = 'none';
+            document.getElementById('question' + (questionNumber + 1)).style.display = 'block';
         }
 
-        function submitSurvey() {
+        function submitAssessment() {
             var selectedSymmetry = document.querySelector('input[name="symmetry"]:checked');
             var selectedBorders = document.querySelector('input[name="smooth_borders"]:checked');
             var selectedColor = document.querySelector('input[name="colored"]:checked');
@@ -193,7 +206,7 @@
             document.getElementById('survey').style.display = 'none';
             document.getElementById('finalPage').style.display = 'block';
 
-            var diagnosis = "Based on your answers, your mole type is: ";
+            var diagnosis = "Based on your mole health assessment, your mole type is: ";
             if (bratzScore >= barbieScore) {
                 diagnosis += "Benign";
             } else {
