@@ -1,57 +1,135 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <title>Photo Transform</title>
-  <meta name="viewport" content="width=device-width, initial-scale=.7">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
-  <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-  <script src="https://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    <!-- Metadata section -->
+    <title>Skin Health Check</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3-colors-flat.css">
 </head>
+
+<style>
+    .body {
+        margin: 0em;
+    }
+
+    .page {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: -100vw;
+        overflow-y: auto;
+        z-index: 0;
+        background-color: hsl(0, 0%, 100%);
+    }
+
+    .page:target {
+        left: 0vw;
+        z-index: 1;
+    }
+
+    img,
+    object {
+        max-height: 90%;
+        max-width: 90%;
+    }
+</style>
+
 <body>
-  <input type="file" id="fileInput" accept="image/*">
-  <canvas id="canvas" width="600" height="500"></canvas>
-  <div id="messageDisplayArea"></div>
+    <!-- Content section-->
+    <div id="header" class="w3-container w3-flat-carrot">
+        <!-- Header-->
+        <h1>Skin Health Check</h1>
+    </div>
 
-  <script>
-    var docMod = document.lastModified;
-    console.log("This file last modified  " + docMod);
+    <!-- Survey Form -->
+    <div class="w3-container">
+        <h2>Survey</h2>
+        <p>Do you think the skin condition is malignant or benign?</p>
+        <button onclick="malignantAdd()">Malignant</button>
+        <button onclick="benignAdd()">Benign</button>
+        <button onclick="percentage()">Calculate Probability</button>
+        <div id="results"></div>
+    </div>
 
-    function detectVerticalSquash(img) {
-      // Function implementation remains the same
-    }
+    <!-- Image Upload Section -->
+    <div class="w3-container">
+        <h2>Upload Image</h2>
+        <input type="file" id="fileInput" accept="image/*">
+        <canvas id="canvas" width="600" height="500"></canvas>
+        <div id="messageDisplayArea"></div>
+    </div>
 
-    function drawImageIOSFix(ctx, img, sx, sy, sw, sh, dx, dy, dw, dh) {
-      // Function implementation remains the same
-    }
+    <!-- JavaScript Section -->
+    <script>
+        // This code lets me know when last the file was modified. It lets me know if I'm looking at the new version or if Github is delayed.
+        var docMod = document.lastModified;
+        alert("This file last modified " + docMod);
+        console.log("This file last modified " + docMod);
 
-    window.onload = function() {
-      var fileInput = document.getElementById('fileInput');
-      var messageDisplayArea = document.getElementById('messageDisplayArea');
-      var canvas = document.getElementById('canvas');
-      var context = canvas.getContext('2d');
+        // Labeled variables and functions to be used throughout the code
+        var malignant_count = 0;
+        var benign_count = 0;
 
-      fileInput.addEventListener('change', function(e) {
-        var file = fileInput.files[0];
-        var imageType = /image.*/;
-        
-        if (file.type.match(imageType)) {
-          var reader = new FileReader();
-          reader.onload = function(e) {
-            messageDisplayArea.innerHTML = "You picked an image!";
-            var img = new Image();
-            img.onload = function() {
-              drawImageIOSFix(context, img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, 600, 500);
-            };
-            img.src = reader.result;
-          };
-          reader.readAsDataURL(file);
-        } else {
-          messageDisplayArea.innerHTML = "Please select an image file.";
+        // Function to increment malignant count and display the alert
+        function malignantAdd() {
+            malignant_count = malignant_count + 1;
+            alert("Malignant count: " + malignant_count);
         }
-      });
-    };
-  </script>
+
+        // Function to increment benign count
+        function benignAdd() {
+            benign_count = benign_count + 1;
+            alert("Benign count: " + benign_count);
+        }
+
+        // Function to calculate percentage probability of malignant or benign
+        function percentage() {
+            // Calculating the percentage based on the counts
+            var malignant_p = (malignant_count / 4) * 100;
+            var benign_p = (benign_count / 4) * 100;
+            // Code to display the results
+            var results = document.getElementById("results");
+            results.innerHTML = "Probability it is malignant: " + malignant_p + "%<br> Probability it is benign: " + benign_p + "%";
+        }
+
+        // Function to draw image on canvas
+        function drawImageIOSFix(ctx, img, sx, sy, sw, sh, dx, dy, dw, dh) {
+            var vertSquashRatio = detectVerticalSquash(img);
+            ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh / vertSquashRatio);
+        }
+
+        // Function to handle image upload
+        window.onload = function () {
+            var fileInput = document.getElementById('fileInput');
+            var messageDisplayArea = document.getElementById('messageDisplayArea');
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+
+            fileInput.addEventListener('change', function (e) {
+                var file = fileInput.files[0];
+                var imageType = /image.*/;
+
+                if (file.type.match(imageType)) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        messageDisplayArea.innerHTML = "You picked an image!";
+                        var img = new Image();
+                        img.onload = function () {
+                            drawImageIOSFix(context, img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, 600, 500);
+                        };
+                        img.src = reader.result;
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    messageDisplayArea.innerHTML = "Please select an image file.";
+                }
+            });
+        };
+    </script>
 </body>
+
 </html>
