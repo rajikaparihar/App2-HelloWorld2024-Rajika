@@ -7,44 +7,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
-        /* Blue and yellow design features */
+        /* Navy blue and yellow design features */
         body {
-            background-color: #f4f4f4;
+            background-color: #000080;
+            color: #FFFF00;
         }
 
-        .w3-blue {
-            background-color: #007bff !important;
-            color: white !important;
+        .w3-container,
+        .w3-btn {
+            background-color: #000080 !important;
+            color: #FFFF00 !important;
         }
 
-        .w3-yellow {
-            background-color: #ffc107 !important;
-            color: black !important;
+        .w3-btn:hover {
+            background-color: #FFFF00 !important;
+            color: #000080 !important;
         }
 
-        .w3-border-yellow {
-            border-color: #ffc107 !important;
+        .w3-bottom {
+            background-color: #000080 !important;
+            color: #FFFF00 !important;
         }
 
-        .w3-text-yellow {
-            color: #ffc107 !important;
-        }
-
-        .w3-hover-blue:hover {
-            background-color: #007bff !important;
-            color: white !important;
-        }
-
-        .w3-hover-yellow:hover {
-            background-color: #ffc107 !important;
-            color: black !important;
+        .w3-flat-carrot {
+            background-color: #000080 !important;
+            color: #FFFF00 !important;
         }
     </style>
 </head>
 
 <body>
     <!-- Survey section -->
-    <div class="w3-container w3-blue">
+    <div class="w3-container w3-flat-carrot">
         <h2>Skin Health Survey</h2>
     </div>
 
@@ -52,25 +46,25 @@
         <form id="surveyForm">
             <div class="w3-row-padding">
                 <div class="w3-half">
-                    <p>Do you have a mole?</p>
+                    <p>Question 1: Does your mole have symmetry?</p>
                     <label class="w3-text-yellow">
-                        <input class="w3-radio" type="radio" name="mole" value="yes">
+                        <input class="w3-radio" type="radio" name="symmetry" value="yes">
                         <span>Yes</span>
                     </label>
                     <label class="w3-text-yellow">
-                        <input class="w3-radio" type="radio" name="mole" value="no">
+                        <input class="w3-radio" type="radio" name="symmetry" value="no">
                         <span>No</span>
                     </label>
                 </div>
 
                 <div class="w3-half">
-                    <p>Do you use SPF daily?</p>
+                    <p>Question 2: Are the borders to your mole smooth?</p>
                     <label class="w3-text-yellow">
-                        <input class="w3-radio" type="radio" name="spf" value="yes">
+                        <input class="w3-radio" type="radio" name="smooth_borders" value="yes">
                         <span>Yes</span>
                     </label>
                     <label class="w3-text-yellow">
-                        <input class="w3-radio" type="radio" name="spf" value="no">
+                        <input class="w3-radio" type="radio" name="smooth_borders" value="no">
                         <span>No</span>
                     </label>
                 </div>
@@ -78,25 +72,39 @@
 
             <div class="w3-row-padding">
                 <div class="w3-half">
-                    <p>Have you been using a tanning bed?</p>
+                    <p>Question 3: How is your mole colored?</p>
                     <label class="w3-text-yellow">
-                        <input class="w3-radio" type="radio" name="tanning" value="yes">
-                        <span>Yes</span>
+                        <input class="w3-radio" type="radio" name="colored" value="one_color">
+                        <span>One consistent color</span>
                     </label>
                     <label class="w3-text-yellow">
-                        <input class="w3-radio" type="radio" name="tanning" value="no">
-                        <span>No</span>
+                        <input class="w3-radio" type="radio" name="colored" value="variety_colors">
+                        <span>Has a variety of colors</span>
                     </label>
                 </div>
 
                 <div class="w3-half">
-                    <p>Do you have a family history of melanoma?</p>
+                    <p>Question 4: Relatively speaking, what is the diameter of your mole?</p>
                     <label class="w3-text-yellow">
-                        <input class="w3-radio" type="radio" name="melanoma" value="yes">
+                        <input class="w3-radio" type="radio" name="diameter" value="small">
+                        <span>Small</span>
+                    </label>
+                    <label class="w3-text-yellow">
+                        <input class="w3-radio" type="radio" name="diameter" value="larger">
+                        <span>Larger</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="w3-row-padding">
+                <div class="w3-half">
+                    <p>Question 5: Does it look like your mole is evolving?</p>
+                    <label class="w3-text-yellow">
+                        <input class="w3-radio" type="radio" name="evolving" value="yes">
                         <span>Yes</span>
                     </label>
                     <label class="w3-text-yellow">
-                        <input class="w3-radio" type="radio" name="melanoma" value="no">
+                        <input class="w3-radio" type="radio" name="evolving" value="no">
                         <span>No</span>
                     </label>
                 </div>
@@ -104,77 +112,44 @@
         </form>
     </div>
 
-    <div class="w3-container w3-blue">
-        <button class="w3-button w3-hover-yellow" onclick="submitSurvey()">Submit</button>
+    <div class="w3-container w3-flat-carrot">
+        <button class="w3-btn w3-hover-yellow" onclick="submitSurvey()">Submit</button>
+    </div>
+
+    <!-- Original image -->
+    <div class="w3-container">
+        <h2>Original Image for Comparison</h2>
+        <img src="https://www.txid.org/wp-content/uploads/2012/05/ABCDEs-1.jpg" alt="Original Mole Image" style="width: 50%; max-width: 500px;">
     </div>
 
     <!-- Image upload section -->
-    <div id="imageUpload" class="w3-container" style="display: none;">
-        <h2>Upload Image for Comparison</h2>
+    <div id="imageUpload" class="w3-container">
+        <h2>Upload Your Image for Comparison</h2>
         <input type="file" id="fileInput" accept="image/*">
         <canvas id="canvas" width="600" height="500"></canvas>
         <div id="messageDisplayArea"></div>
     </div>
 
-    <!-- JavaScript section -->
+    <!-- Script -->
     <script>
         // Function to submit the survey
         function submitSurvey() {
             var form = document.getElementById("surveyForm");
-            var mole = form.elements["mole"].value;
-            var spf = form.elements["spf"].value;
-            var tanning = form.elements["tanning"].value;
-            var melanoma = form.elements["melanoma"].value;
+            var symmetry = form.elements["symmetry"].value;
+            var smoothBorders = form.elements["smooth_borders"].value;
+            var colored = form.elements["colored"].value;
+            var diameter = form.elements["diameter"].value;
+            var evolving = form.elements["evolving"].value;
 
-            // Calculate the scores
-            var malignantScore = 0;
-            var benignScore = 0;
-            if (mole === "yes") malignantScore++;
-            else benignScore++;
-            if (spf === "no") malignantScore++;
-            else benignScore++;
-            if (tanning === "yes") malignantScore++;
-            else benignScore++;
-            if (melanoma === "yes") malignantScore++;
-            else benignScore++;
-
-            // Show image upload section
-            var surveyDiv = document.getElementById("imageUpload");
-            surveyDiv.style.display = "block";
-
-            // Display scores (for testing)
-            console.log("Malignant Score:", malignantScore);
-            console.log("Benign Score:", benignScore);
+            // Add your logic here to process survey results
+            console.log("Symmetry:", symmetry);
+            console.log("Smooth Borders:", smoothBorders);
+            console.log("Colored:", colored);
+            console.log("Diameter:", diameter);
+            console.log("Evolving:", evolving);
         }
-
-        // Image upload handling (similar to previous code)
-        window.onload = function () {
-            var fileInput = document.getElementById('fileInput');
-            var messageDisplayArea = document.getElementById('messageDisplayArea');
-            var canvas = document.getElementById('canvas');
-            var context = canvas.getContext('2d');
-
-            fileInput.addEventListener('change', function (e) {
-                var file = fileInput.files[0];
-                var imageType = /image.*/;
-
-                if (file.type.match(imageType)) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        messageDisplayArea.innerHTML = "You picked an image!";
-                        var img = new Image();
-                        img.onload = function () {
-                            drawImageIOSFix(context, img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, 600, 500);
-                        };
-                        img.src = reader.result;
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    messageDisplayArea.innerHTML = "Please select an image file.";
-                }
-            });
-        };
     </script>
 </body>
 
 </html>
+
